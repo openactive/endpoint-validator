@@ -1,12 +1,12 @@
 {
-  "name": "redux-undo-boilerplate",
-  "version": "1.0.0-beta2",
-  "description": "a magical boilerplate with hot reloading and awesome error handling™ that uses webpack, redux, react and redux-undo",
+  "name": "openactive-endpoint-validator",
+  "version": "0.0.0",
+  "description": "Validator for endpoints implementing OpenActive Real-Time Paged Exchange Standard",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/omnidan/redux-undo-boilerplate.git"
+    "url": "https://bitbucket.org/imin-ltd/openactive-endpoint-validator"
   },
   "scripts": {
     "start": "node server.js",
@@ -23,9 +23,9 @@
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build"
   },
-  "author": "Daniel Bugl <me@omnidan.net> (https://github.com/omnidan)",
+  "author": "Luke Winship <luke.winship@gmail> (https://github.com/lukehesluke)",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "keywords": [
     "redux",

@@ -45,16 +45,15 @@ const InternalForm = reduxForm({
 
 export default class UrlForm extends Component {
   static propTypes = {
-    push: PropTypes.func.isRequired,
+    doAwaitValidation: PropTypes.func.isRequired,
 
     validationState: PropTypes.string
   };
 
   render() {
-    const {push, validationState} = this.props
+    const {doAwaitValidation, validationState} = this.props
     const onSubmit = ({url}) => {
-      const escapedUrl = url ? encodeURIComponent(url) : ''
-      push(`/validate?url=${escapedUrl}`)
+      doAwaitValidation(url)
     }
     return <InternalForm onSubmit={onSubmit} isValidationInProgress={validationState === VALIDATION_STATES.IN_PROGRESS} />
   }

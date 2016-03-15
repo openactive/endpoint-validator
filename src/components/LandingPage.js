@@ -4,18 +4,18 @@ import UrlForm from '../components/UrlForm'
 
 export default class LandingPage extends Component {
   static propTypes = {
-    push: PropTypes.func.isRequired,
+    doAwaitValidation: PropTypes.func.isRequired,
 
     validationState: PropTypes.string
   };
 
   render() {
-    const {setEndpointUrl, push, validationState} = this.props
+    const {doAwaitValidation, validationState} = this.props
     return (
       <Grid>
         <Row>
           <Col xs={12}>
-            <UrlForm push={push} validationState={validationState} />
+            <UrlForm doAwaitValidation={doAwaitValidation} validationState={validationState} />
           </Col>
         </Row>
       </Grid>

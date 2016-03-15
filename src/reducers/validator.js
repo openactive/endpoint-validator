@@ -1,3 +1,6 @@
+import {push} from 'react-router-redux'
+
+const SET_IS_AWAITING_VALIDATION = 'openactive-endpoint-validator/validator/SET_IS_AWAITING_VALIDATION'
 const INIT_ENDPOINT_VALIDATION = 'openactive-endpoint-validator/validator/INIT_ENDPOINT_VALIDATION'
 const SUCCEED_ENDPOINT_VALIDATION = 'openactive-endpoint-validator/validator/SUCCEED_ENDPOINT_VALIDATION'
 const FAIL_ENDPOINT_VALIDATION = 'openactive-endpoint-validator/validator/FAIL_ENDPOINT_VALIDATION'
@@ -9,6 +12,7 @@ export const VALIDATION_STATES = {
 }
 
 const INITIAL_STATE = {
+  isAwaitingValidation: true,
   endpointUrl: null,
   state: null,
   errorReason: null
@@ -18,11 +22,15 @@ export default function validator(state={...INITIAL_STATE}, action) {
   switch (action.type) {
     case INIT_ENDPOINT_VALIDATION:
       const {endpointUrl} = action
-      return {...state, state: VALIDATION_STATES.IN_PROGRESS, endpointUrl, errorReason: null}
+      return {...state, state: VALIDATION_STATES.IN_PROGRESS, endpointUrl, errorReason: null, isAwaitingValidation: false}
     case SUCCEED_ENDPOINT_VALIDATION:
       return {...state, state: VALIDATION_STATES.SUCCEEDED, errorReason: null}
     case FAIL_ENDPOINT_VALIDATION:
-      return {...state, state: VALIDATION_STATES.FAILED, errorReason: action.reason}
+      const {errorReason} = action
+      return {...state, state: VALIDATION_STATES.FAILED, errorReason}
+    case SET_IS_AWAITING_VALIDATION:
+      const {isAwaitingValidation} = action
+      return {...state, isAwaitingValidation}
     default:
       return state
   }
@@ -31,6 +39,7 @@ export default function validator(state={...INITIAL_STATE}, action) {
 const initEndpointValidation = endpointUrl => ({type: INIT_ENDPOINT_VALIDATION, endpointUrl})
 const succeedEndpointValidation = () => ({type: SUCCEED_ENDPOINT_VALIDATION})
 const failEndpointValidation = errorReason => ({type: FAIL_ENDPOINT_VALIDATION, errorReason})
+const setIsAwaitingValidation = isAwaitingValidation => ({type: SET_IS_AWAITING_VALIDATION, isAwaitingValidation})
 
 export const doEndpointValidation = endpointUrl => (
   (dispatch, getState) => {
@@ -45,5 +54,13 @@ export const doEndpointValidation = endpointUrl => (
         dispatch(failEndpointValidation('Received 500 error'))
       }
     }, 5000)
+  }
+)
+
+export const doAwaitValidation = endpointUrl => (
+  (dispatch, getState) => {
+    const escapedUrl = endpointUrl ? encodeURIComponent(endpointUrl) : ''
+    dispatch(push(`/validate?url=${escapedUrl}`))
+    dispatch(setIsAwaitingValidation(true))
   }
 )

@@ -6,29 +6,32 @@ import {VALIDATION_STATES} from '../reducers/validator'
 export default class ValidatePage extends Component {
   static propTypes = {
     doEndpointValidation: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired,
+    doAwaitValidation: PropTypes.func.isRequired,
 
     validationState: PropTypes.string,
-    validationErrorReason: PropTypes.string
+    validationErrorReason: PropTypes.string,
+    isAwaitingValidation: PropTypes.bool.isRequired
   };
 
-  doValidateUsingQueryParams(queryParams) {
-    const {url} = queryParams
-    this.props.doEndpointValidation(url)
-  }
-
-  doValidateUsingQueryParamsIfChanged(lastQueryParams, newQueryParams) {
-    if (lastQueryParams.url !== newQueryParams.url) {
-      this.doValidateUsingQueryParams(newQueryParams)
+  doValidateUsingQueryParams() {
+    const {
+      isAwaitingValidation,
+      doEndpointValidation,
+      location: {
+        query: {url}
+      }
+    } = this.props
+    if (isAwaitingValidation) {
+      doEndpointValidation(url)
     }
   }
 
   componentDidMount() {
-    this.doValidateUsingQueryParams(this.props.location.query)
+    this.doValidateUsingQueryParams()
   }
 
   componentDidUpdate(prevProps) {
-    this.doValidateUsingQueryParamsIfChanged(prevProps.location.query, this.props.location.query)
+    this.doValidateUsingQueryParams()
   }
 
   renderValidationResult() {
@@ -60,12 +63,12 @@ export default class ValidatePage extends Component {
   }
 
   render() {
-    const {setEndpointUrl, push, validationState} = this.props
+    const {doAwaitValidation, validationState} = this.props
     return (
       <Grid>
         <Row>
           <Col xs={12}>
-            <UrlForm push={push} validationState={validationState} />
+            <UrlForm doAwaitValidation={doAwaitValidation} validationState={validationState} />
           </Col>
         </Row>
         {this.renderValidationResult()}

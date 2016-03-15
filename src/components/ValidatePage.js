@@ -66,12 +66,12 @@ export default class ValidatePage extends Component {
     const {doAwaitValidation, validationState} = this.props
     return (
       <Grid>
+        {this.renderValidationResult()}
         <Row>
           <Col xs={12}>
             <UrlForm doAwaitValidation={doAwaitValidation} validationState={validationState} />
           </Col>
         </Row>
-        {this.renderValidationResult()}
       </Grid>
     )
   }

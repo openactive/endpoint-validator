@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch'
 import {push} from 'react-router-redux'
 
 const SET_IS_AWAITING_VALIDATION = 'openactive-endpoint-validator/validator/SET_IS_AWAITING_VALIDATION'
@@ -45,15 +46,22 @@ export const doEndpointValidation = endpointUrl => (
   (dispatch, getState) => {
     dispatch(initEndpointValidation(endpointUrl))
 
-    // TODO actual validation
+    const succeed = () => { dispatch(succeedEndpointValidation()) }
+    const fail = error => { dispatch(failEndpointValidation(error.message)) }
 
-    setTimeout(() => {
-      if (Math.random() < 0.5) {
-        dispatch(succeedEndpointValidation())
-      } else {
-        dispatch(failEndpointValidation('Received 500 error'))
-      }
-    }, 5000)
+    fetch(endpointUrl)
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error(`Received ${response.status} error from endpoint`)
+        }
+        return response.json().catch(() => {
+          throw new Error('Invalid JSON')
+        })
+      })
+      .then(json => {
+        // TODO Validation of JSON
+      })
+      .then(succeed, fail)
   }
 )
 

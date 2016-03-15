@@ -6,6 +6,10 @@ import rootReducer from '../reducers'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
 import createLogger from 'redux-logger'
+import {browserHistory} from 'react-router'
+import {routerMiddleware} from 'react-router-redux'
+import routes from '../routes'
+import {createHistory} from 'history'
 
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import defaultImport from '../utils/defaultImport'
@@ -28,14 +32,19 @@ if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
       enforceImmutableMiddleware,
       thunkMiddleware,
       promiseMiddleware,
-      loggerMiddleware
+      loggerMiddleware,
+      routerMiddleware(browserHistory)
     ),
     DevTools.instrument(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
   )(createStore)
 } else {
   createStoreWithMiddleware = compose(
-    applyMiddleware(thunkMiddleware, promiseMiddleware)
+    applyMiddleware(
+      thunkMiddleware,
+      promiseMiddleware,
+      routerMiddleware(browserHistory)
+    )
   )(createStore)
 }
 

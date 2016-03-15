@@ -1,16 +1,17 @@
 /*eslint-disable*/
 import React from 'react'
-import { Route } from 'react-router'
+import {IndexRoute, Route} from 'react-router'
+import NotFound from './containers/NotFound'
 import App from './containers/App'
-import * as containers from './containers'
+import LandingPage from './containers/LandingPage'
+import ValidatePage from './containers/ValidatePage'
 /*eslint-enable*/
 
-const {
-  CounterPage
-} = containers
-
 export default (
-  <Route component={App}>
-    <Route path="/" component={CounterPage} />
+  <Route path="/" component={App}>
+    <IndexRoute component={LandingPage} />
+    <Route path="validate" component={ValidatePage} />
+    {/* Catch all route */}
+    <Route path="*" component={NotFound} status={404} />
   </Route>
 )

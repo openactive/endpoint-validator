@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {push} from 'react-router-redux'
+import validateEndpointUrl from '../utils/validateEndpointUrl'
 
 const SET_IS_AWAITING_VALIDATION = 'openactive-endpoint-validator/validator/SET_IS_AWAITING_VALIDATION'
 const INIT_ENDPOINT_VALIDATION = 'openactive-endpoint-validator/validator/INIT_ENDPOINT_VALIDATION'
@@ -46,22 +47,11 @@ export const doEndpointValidation = endpointUrl => (
   (dispatch, getState) => {
     dispatch(initEndpointValidation(endpointUrl))
 
-    const succeed = () => { dispatch(succeedEndpointValidation()) }
-    const fail = error => { dispatch(failEndpointValidation(error.message)) }
-
-    fetch(endpointUrl)
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error(`Received ${response.status} error from endpoint`)
-        }
-        return response.json().catch(() => {
-          throw new Error('Invalid JSON')
-        })
-      })
-      .then(json => {
-        // TODO Validation of JSON
-      })
-      .then(succeed, fail)
+    validateEndpointUrl(endpointUrl).then(() => {
+      dispatch(succeedEndpointValidation())
+    }, error => {
+      dispatch(failEndpointValidation(error.message))
+    })
   }
 )
 

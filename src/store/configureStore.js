@@ -6,7 +6,7 @@ import rootReducer from '../reducers'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
 import createLogger from 'redux-logger'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 import {routerMiddleware} from 'react-router-redux'
 import routes from '../routes'
 import {createHistory} from 'history'
@@ -33,7 +33,7 @@ if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
       thunkMiddleware,
       promiseMiddleware,
       loggerMiddleware,
-      routerMiddleware(browserHistory)
+      routerMiddleware(hashHistory)
     ),
     DevTools.instrument(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
@@ -43,7 +43,7 @@ if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
     applyMiddleware(
       thunkMiddleware,
       promiseMiddleware,
-      routerMiddleware(browserHistory)
+      routerMiddleware(hashHistory)
     )
   )(createStore)
 }

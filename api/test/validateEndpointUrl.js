@@ -58,7 +58,7 @@ const ERRANT_SCHEMA_JSONS = [
   // item missing 'id' field
   {
     items: [{
-      state: 'Updated',
+      state: 'updated',
       kind: 'session',
       modified: '2016-03-29T14:00:00.000Z',
       data: {}
@@ -69,7 +69,7 @@ const ERRANT_SCHEMA_JSONS = [
 
 const VALID_SCHEMA_JSON = {
   items: [{
-    state: 'Updated',
+    state: 'updated',
     kind: 'session',
     modified: '2016-03-29T14:00:00.000Z',
     id: 1,

@@ -23,7 +23,7 @@ const isDateString = string => (
 const DateType = t.subtype(t.String, string => moment(string).isValid(), 'Date')
 
 const ItemSchema = t.struct({
-  state: t.enums.of(['Updated', 'Deleted'], 'Item State'),
+  state: t.enums.of(['updated', 'deleted'], 'Item State'),
   kind: t.enums.of(['session'], 'Item Kind'),
   id: t.union([t.String, t.Number]),
   modified: DateType,
@@ -38,7 +38,7 @@ const ResponseSchema = t.struct({
 const validateJsonData = data => {
   const result = validate(data, ResponseSchema)
   if (!result.isValid()) {
-    throw new JsonSchemaError(result.firstError())
+    throw new JsonSchemaError(JSON.stringify(result.errors))
   }
 }
 

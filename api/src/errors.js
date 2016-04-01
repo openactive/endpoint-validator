@@ -15,9 +15,9 @@ export class InvalidJsonError extends Error {
 }
 
 export class JsonSchemaError extends Error {
-  constructor(error) {
+  constructor(message) {
     super()
     this.name = 'JsonSchemaError'
-    this.message = `JSON Scema Error: ${error.message}`
+    this.message = `JSON Schema Error: ${message}`
   }
 }

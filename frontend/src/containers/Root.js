@@ -2,7 +2,7 @@
 /*eslint-disable*/
 import React, { Component, PropTypes } from 'react'
 import { Provider } from 'react-redux'
-import {Router, browserHistory} from 'react-router'
+import {Router, hashHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 import configureStore from '../store/configureStore'
 import routes from '../routes'
@@ -13,7 +13,7 @@ const store = configureStore()
 
 function createElements (history) {
   const elements = [
-    <Router key="router" history={syncHistoryWithStore(browserHistory, store)} children={routes} />
+    <Router key="router" history={syncHistoryWithStore(hashHistory, store)} children={routes} />
   ]
 
   if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {

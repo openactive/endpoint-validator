@@ -12,7 +12,6 @@
     "start": "node server.js",
     "dev": "DEBUG=true node server.js",
     "clean": "rimraf lib dist coverage",
-    "lint": "eslint src test",
     "test": "NODE_PATH=src NODE_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "NODE_ENV=test npm test -- --watch",
     "test:cov": "babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",

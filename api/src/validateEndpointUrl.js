@@ -38,7 +38,7 @@ const ResponseSchema = t.struct({
 const validateJsonData = data => {
   const result = validate(data, ResponseSchema)
   if (!result.isValid()) {
-    throw new JsonSchemaError(JSON.stringify(result.errors))
+    throw new JsonSchemaError(result.firstError())
   }
 }
 

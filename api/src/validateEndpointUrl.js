@@ -35,10 +35,18 @@ const ResponseSchema = t.struct({
   next: t.String
 })
 
+const joinValidationErrors = errors => {
+  if (errors.length < 10) {
+    return errors.map(err => err.message).join(', ')
+  } else {
+    return errors.slice(0, 10).map(err => err.message).join(', ') + ' ...'
+  }
+}
+
 const validateJsonData = data => {
   const result = validate(data, ResponseSchema)
   if (!result.isValid()) {
-    throw new JsonSchemaError(result.firstError())
+    throw new JsonSchemaError(`[${joinValidationErrors(result.errors)}]`)
   }
 }
 

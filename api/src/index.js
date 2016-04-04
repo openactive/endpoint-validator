@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import validateEndpointUrl from './validateEndpointUrl'
 
 export function validate(url) {
@@ -6,6 +7,11 @@ export function validate(url) {
             err => ({success: false, message: err.message}));
 }
 
-function handler(event, context) {
-  context.succeed("Hello API validator!")
+export function handler(event, context) {
+  validate("https://demo0023140.mockable.io/getSessions")
+    .then(res => {
+      console.log("IN THE HANDLER")
+      console.log(JSON.stringify(res))
+      context.succeed(res);
+    })
 }

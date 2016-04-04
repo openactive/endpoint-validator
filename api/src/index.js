@@ -8,7 +8,7 @@ export function validate(url) {
 }
 
 export function handler(event, context) {
-  validate("https://demo0023140.mockable.io/getSessions")
+  validate(event.queryParams.url)
     .then(res => {
       console.log("IN THE HANDLER")
       console.log(JSON.stringify(res))

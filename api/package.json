@@ -4,7 +4,9 @@
   "description": "The api for the validator (basically just a lambda function at this stage)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_PATH=src NODE_ENV=test mocha --compilers js:babel-core/register --recursive",
+    "test:watch": "NODE_ENV=test npm test -- --watch",
+    "test:cov": "babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
     "validate": "gulp validate"
   },
   "author": "John Cowie",

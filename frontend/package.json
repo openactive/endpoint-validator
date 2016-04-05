@@ -61,7 +61,6 @@
     "isparta": "^4.0.0",
     "jsdom": "^8.0.1",
     "jsdom-global": "^1.6.1",
-    "mocha": "^2.4.5",
     "morgan": "^1.6.1",
     "proxyquire": "^1.7.3",
     "react-addons-test-utils": "^0.14.7",

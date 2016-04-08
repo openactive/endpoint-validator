@@ -1,6 +1,6 @@
 import express from 'express'
-import validateEndpointUrl from 'utils/validateEndpointUrl'
-import {JsonSchemaError, InvalidJsonError, HttpError} from 'utils/errors'
+import validateEndpointUrl from '../src/validateEndpointUrl'
+import {JsonSchemaError, InvalidJsonError, HttpError} from '../src/errors'
 
 const MOCK_API_PORT = process.env.MOCK_API_PORT || 3003
 const MOCK_API_URL = `http://localhost:${MOCK_API_PORT}/`
@@ -58,7 +58,7 @@ const ERRANT_SCHEMA_JSONS = [
   // item missing 'id' field
   {
     items: [{
-      state: 'Updated',
+      state: 'updated',
       kind: 'session',
       modified: '2016-03-29T14:00:00.000Z',
       data: {}
@@ -69,7 +69,7 @@ const ERRANT_SCHEMA_JSONS = [
 
 const VALID_SCHEMA_JSON = {
   items: [{
-    state: 'Updated',
+    state: 'updated',
     kind: 'session',
     modified: '2016-03-29T14:00:00.000Z',
     id: 1,

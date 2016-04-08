@@ -10,6 +10,7 @@ export default class ValidatePage extends Component {
 
     validationState: PropTypes.string,
     validationErrorReason: PropTypes.string,
+    validationErrorType: PropTypes.string,
     isAwaitingValidation: PropTypes.bool.isRequired
   };
 
@@ -42,7 +43,7 @@ export default class ValidatePage extends Component {
       if (validationState === VALIDATION_STATES.SUCCEEDED) {
         alert = (
           <Alert bsStyle="success">
-            <strong>Success!</strong> Endpoint validated successfully 
+            <strong>Success!</strong> Endpoint validated successfully
           </Alert>
         )
       } else if (validationState === VALIDATION_STATES.FAILED) {

@@ -1,6 +1,11 @@
 .DS_Store
-npm-debug.log
-node_modules
-coverage
-dist
-.*.sw?
+api/npm-debug.log
+frontend/npm-debug.log
+api/node_modules
+frontend/node_modules
+api/coverage
+frontend/coverage
+api/dist
+frontend/dist
+api/*.sw?
+frontend/*.sw?

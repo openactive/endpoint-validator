@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import moment from 'moment'
 import t, {validate} from 'tcomb-validation'
-import {HttpError, InvalidJsonError, JsonSchemaError} from '../utils/errors'
+import {HttpError, InvalidJsonError, JsonSchemaError} from './errors'
 
 const checkResponseForHttpError = response => {
   if (response.status >= 400) {
@@ -23,7 +23,7 @@ const isDateString = string => (
 const DateType = t.subtype(t.String, string => moment(string).isValid(), 'Date')
 
 const ItemSchema = t.struct({
-  state: t.enums.of(['Updated', 'Deleted'], 'Item State'),
+  state: t.enums.of(['updated', 'deleted'], 'Item State'),
   kind: t.enums.of(['session'], 'Item Kind'),
   id: t.union([t.String, t.Number]),
   modified: DateType,
@@ -35,10 +35,18 @@ const ResponseSchema = t.struct({
   next: t.String
 })
 
+const joinValidationErrors = errors => {
+  if (errors.length < 10) {
+    return errors.map(err => err.message).join(', ')
+  } else {
+    return errors.slice(0, 10).map(err => err.message).join(', ') + ' ...'
+  }
+}
+
 const validateJsonData = data => {
   const result = validate(data, ResponseSchema)
   if (!result.isValid()) {
-    throw new JsonSchemaError(result.firstError())
+    throw new JsonSchemaError(`[${joinValidationErrors(result.errors)}]`)
   }
 }
 

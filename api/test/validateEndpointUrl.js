@@ -67,16 +67,28 @@ const ERRANT_SCHEMA_JSONS = [
   }
 ].map(x => JSON.stringify(x))
 
-const VALID_SCHEMA_JSON = {
-  items: [{
-    state: 'updated',
-    kind: 'session',
-    modified: '2016-03-29T14:00:00.000Z',
-    id: 1,
-    data: {}
-  }],
-  next: '/?from=2016-03-29T14:00:00.000Z&after=1'
-}
+const VALID_SCHEMA_JSONS = [
+  {
+    items: [{
+      state: 'updated',
+      kind: 'session',
+      modified: '2016-03-29T14:00:00.000Z',
+      id: 1,
+      data: {}
+    }],
+    next: '/?from=2016-03-29T14:00:00.000Z&after=1'
+  },
+  {
+    items: [{
+      state: 'deleted',
+      kind: 'event',
+      modified: '2016-03-29T14:00:00.000Z',
+      id: 2,
+      data: null
+    }],
+    next: '/?from=2016-03-29T14:00:00.000Z&after=2'
+  },
+]
 
 describe('Enpoint URL validation', () => {
   it('should throw on HTTP errors', () => {
@@ -99,9 +111,14 @@ describe('Enpoint URL validation', () => {
     )
     return chainPromises(ERRANT_SCHEMA_JSONS.map(assertJsonThrows))
   })
-  it('should validate on successful schema', () => {
-    return runServer(jsonHandler(VALID_SCHEMA_JSON), () => {
-      return validateEndpointUrl(MOCK_API_URL)
-    })
+  it('should validate on successful schemas', () => {
+    const assertJsonIsValid = jsonString => (
+      () => {
+        return runServer(jsonHandler(jsonString), () => {
+          return validateEndpointUrl(MOCK_API_URL)
+        })
+      }
+    )
+    return chainPromises(VALID_SCHEMA_JSONS.map(assertJsonIsValid))
   })
 })

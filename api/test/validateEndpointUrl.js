@@ -82,11 +82,11 @@ const VALID_SCHEMA_JSONS = [
     items: [{
       state: 'deleted',
       kind: 'event',
-      modified: '2016-03-29T14:00:00.000Z',
+      modified: 1460131854489,
       id: 2,
       data: null
     }],
-    next: '/?from=2016-03-29T14:00:00.000Z&after=2'
+    next: '/?from=1460131854489&after=2'
   },
 ]
 

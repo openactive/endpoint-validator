@@ -26,7 +26,7 @@ const ItemSchema = t.struct({
   state: t.enums.of(['updated', 'deleted'], 'Item State'),
   kind: t.enums.of(['session', 'event'], 'Item Kind'),
   id: t.union([t.String, t.Number]),
-  modified: DateType,
+  modified: t.union([DateType, t.Number]),
   data: t.Any
 })
 

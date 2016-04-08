@@ -7,5 +7,5 @@ api/coverage
 frontend/coverage
 api/dist
 frontend/dist
-api/*.sw?
-frontend/*.sw?
+.*.sw?
+.*.sw?

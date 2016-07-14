@@ -2,10 +2,14 @@
   "name": "openactive-endpoint-validator-api",
   "version": "1.0.0",
   "description": "The api for the validator (basically just a lambda function at this stage)",
+  "engines": {
+    "node": "5.9.1"
+  },
   "main": "index.js",
   "scripts": {
     "test": "gulp test",
-    "validate": "gulp validate"
+    "validate": "gulp validate",
+    "start": "node index.js"
   },
   "author": "John Cowie",
   "license": "ISC",

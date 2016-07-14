@@ -3,8 +3,8 @@ node_js:
 - 4.0.0
 script:
 - cd api
-- npm test
-- npm build
+- npm run test
+- npm run build
 deploy:
   api_key:
     secure: ochelmSMKpOp/U+m4shC+lQxsBbO35Ft6ys4ahVks3EleGySbnAUmzjGSHgsavmdVrhFTVF5qQpeNaVt/5PSY3hOC/JqNVcqZwvBL/csOidIndqVp2jUah/JVCGNsDp18hHnGp+ys1gHOlofkEK3EjEzPO+mW9m6wBmtZmGdEyPNTm5wGJRe1piPgCsb/JLM7/rPhaq4C8dPpRJrkfR9I1oHTdHmQccvjqeqOKHh/PpPHe2RdwdXtGiunu6xCMpUXi0ySXWWUfdI42b6rUqPqaZgwogrrGac5pxDUI5AX+FC+Nsno/zMdZAQSNsdTXPeVcnlnWVK8QsLRBSZdhKUP7Ph7jWSYarjo7weErKrPMpXoiynIz8DogKsWz/8CN9IpWFdcA1Z7yN/GXMmVFzEU1WUX5QhuyT9OtHLjtK3ayy//lAYtwmRM8dCMLfuz0i4oTw0GdUO0SSMLkvxKaIU/iY8lfOWYs3mqJHDDqc++B/AMsGTo3x1kutHuTCvH6XyxHaB6Ad7QeSmq/EjQbB8RDhrpQZsAMqq6/HVwuMWfJnqbxWuDguCYKRvAUIy2H9D0RNL6ctSQd94JX4NUAATMhtCjt7yh/IIDaHgJMsPeW3zM4vZl38au84veTXIlKL0UGw97Q3uX7qLsW33WttqvkoKwBdT7f92aABw20OHtEo=

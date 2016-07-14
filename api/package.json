@@ -7,6 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "build": "gulp build",
     "test": "gulp test",
     "validate": "gulp validate",
     "start": "node index.js"

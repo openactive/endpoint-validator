@@ -24,9 +24,9 @@ const DateType = t.subtype(t.String, string => moment(string).isValid(), 'Date')
 
 const ItemSchema = t.struct({
   state: t.enums.of(['updated', 'deleted'], 'Item State'),
-  kind: t.enums.of(['session', 'event'], 'Item Kind'),
-  id: t.union([t.String, t.Number]),
-  modified: t.union([DateType, t.Number]),
+  //kind: t.enums.of(['session', 'event'], 'Item Kind'),
+  id: t.union([t.String, t.Number, t.String]),
+  modified: t.union([DateType, t.Number, t.String]),
   data: t.Any
 })
 

@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp build",
-    "build-src": "gulp build-src",
+    "postinstall": "gulp build-src",
     "test": "gulp test",
     "validate": "gulp validate",
     "start": "node dist/src/index.js"

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    Nick Evans / imin
+    imin.co | @nickevans / @_imin_
+    For openactive.io
+    Free for personal and commercial use under the CC-BY v4.0 license (https://creativecommons.org/licenses/by/4.0/)
+-->
+<head>
+<title>Openactive Endpoint Validator</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/minified/polyfiller.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+<!--<![endif]-->
+
+<script type="text/javascript">
+
+webshims.polyfill('forms es5');
+
+/* 
+ * Access validator
+ */
+function loadJSON(url, cb) {
+    $.getJSON(url, function(data) {
+        cb(data);
+    }, "text").fail(function() {
+        alert("Error accessing validator: " + url);
+    });
+}
+
+/* 
+ * On Page Load
+ */
+$(function() {
+    $( "#validate ").click(function() {
+        $( "#answer" ).text( "Loading...");
+
+        //Load template first
+        loadJSON("api?url=" + encodeURIComponent($( "#url" ).val()), function(data) {
+            if (data.success) {
+                $( "#answer" ).text( "Validation successful" );
+            } else {
+                $( "#answer" ).text( data.message );
+            }
+        });
+    });    
+})    
+
+</script>
+<style>
+    body { max-width: 700px; margin: 20px; }
+    label { padding-top: 20px; }
+    textarea {height: 200px;}
+</style>
+</head>
+<body>
+
+    <h1><a href="https://www.openactive.io/"><img src="https://www.openactive.io/assets/openactive-logo-small.png" width="180" alt="Openactive" /></a> Endpoint Validator</h1>
+
+    <form id="content" class="pure-form pure-form-stacked">
+        <fieldset id="inputdata">
+            <label for="dataset-site-url"><strong>Endpoint URL</strong></label>
+            <input class="pure-input-1" id="url" type="url" placeholder="">
+        </fieldset>
+        <input id="validate" type="button" value="Validate" />
+
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />  
+
+        <div id="answer"></div>
+
+    </form>
+
+</body>
+</html>

@@ -3,6 +3,11 @@ const babel = require('gulp-babel');
 const mocha = require('gulp-mocha');
 const argvBuilder = require('yargs');
 
+gulp.task('copy-public', () => {
+  return gulp.src('src/public/*')
+    .pipe(gulp.dest('dist/src/public'));
+});
+
 gulp.task('build-src', () => {
 	return gulp.src('src/**/*.js')
 		.pipe(babel())
@@ -15,7 +20,7 @@ gulp.task('build-test', () => {
 		.pipe(gulp.dest('dist/test/'));
 })
 
-gulp.task('build', ['build-src', 'build-test'])
+gulp.task('build', ['build-src', 'build-test', 'copy-public'])
 
 gulp.task('test', () => {
     return gulp.src('dist/test/**/*.js', {read: false})

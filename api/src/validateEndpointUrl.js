@@ -24,7 +24,7 @@ const DateType = t.subtype(t.String, string => moment(string).isValid(), 'Date')
 
 const ItemSchema = t.struct({
   state: t.enums.of(['updated', 'deleted'], 'Item State'),
-  //kind: t.enums.of(['session', 'event'], 'Item Kind'),
+  kind: t.String,//t.enums.of(['session', 'event'], 'Item Kind'),
   id: t.union([t.String, t.Number, t.String]),
   modified: t.union([DateType, t.Number, t.String]),
   data: t.Any
@@ -32,21 +32,22 @@ const ItemSchema = t.struct({
 
 const ResponseSchema = t.struct({
   items: t.list(ItemSchema),
-  next: t.String
+  next: t.String,
+  license: t.String
 })
 
 const joinValidationErrors = errors => {
   if (errors.length < 10) {
-    return errors.map(err => err.message).join(', ')
+    return errors.map(err => err.message).join('; \n\n')
   } else {
-    return errors.slice(0, 10).map(err => err.message).join(', ') + ' ...'
+    return errors.slice(0, 10).map(err => err.message).join('; \n\n') + ' ...'
   }
 }
 
 const validateJsonData = data => {
   const result = validate(data, ResponseSchema)
   if (!result.isValid()) {
-    throw new JsonSchemaError(`[${joinValidationErrors(result.errors)}]`)
+    throw new JsonSchemaError(`${joinValidationErrors(result.errors)}`)
   }
 }
 

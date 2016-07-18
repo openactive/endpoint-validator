@@ -4,7 +4,6 @@ node_js:
 script:
 - cd api
 - npm install
-- npm run test
 - npm run build
 deploy:
   api_key:
